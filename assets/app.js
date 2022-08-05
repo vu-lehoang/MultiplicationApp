@@ -1,27 +1,32 @@
-const numRandom1 = Math.floor(Math.random() * 10);
-const numRandom2 = Math.floor(Math.random() * 10);
 const quuestionEl = document.querySelector("#question");
 const formEl = document.querySelector("#form");
 const inputEl = document.querySelector("#input");
-quuestionEl.innerText = `What is ${numRandom1} multiply by ${numRandom2}`;
 const scoreEl = document.querySelector("#score");
-let score = JSON.parse(localStorage.getItem("score"));
-if (!score) {
-  score = 0;
-}
-scoreEl.innerText = `Score: ${score}`;
+let score = 0;
 
-const correctAns = numRandom1 * numRandom2;
+var numRandom1 = Math.floor(Math.random() * 10);
+var numRandom2 = Math.floor(Math.random() * 10);
+quuestionEl.innerText = `What is ${numRandom1} multiply by ${numRandom2}`;
+let correctAns = numRandom1 * numRandom2;
 
-formEl.addEventListener("submit", () => {
+formEl.addEventListener("submit", async function (e) {
+  e.preventDefault(); // ngặn chặn load form
   const userAns = +inputEl.value;
+
   if (userAns === correctAns) {
     score++;
-    updateLocalStorage();
+    var numRandom1 = Math.floor(Math.random() * 10);
+    var numRandom2 = Math.floor(Math.random() * 10);
+    correctAns = numRandom1 * numRandom2;
+    inputEl.value = "";
+    quuestionEl.innerText = `What is ${numRandom1} multiply by ${numRandom2}`;
   } else {
-    score--;
+    score = 0;
+    inputEl.value = "Answer's wrong";
+    setTimeout(() => {
+      inputEl.value = "";
+    }, 1000);
   }
+  scoreEl.innerText = `Score: ${score}`;
+  return correctAns;
 });
-
-// lưu vào localStorage
-function updateLocalStorage() {}
