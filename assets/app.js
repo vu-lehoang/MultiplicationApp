@@ -9,7 +9,7 @@ var numRandom2 = Math.floor(Math.random() * 10);
 quuestionEl.innerText = `What is ${numRandom1} multiply by ${numRandom2}`;
 let correctAns = numRandom1 * numRandom2;
 
-formEl.addEventListener("submit", async function (e) {
+formEl.addEventListener("submit", function (e) {
   e.preventDefault(); // ngặn chặn load form
   const userAns = +inputEl.value;
 
